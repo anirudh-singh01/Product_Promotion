@@ -43,39 +43,65 @@ function createSlider(sliderId, intervalTime = 10000) {
     pauseBtn.textContent = "▶️";
   }
 
-  pauseBtn.addEventListener("click", () => {
-    playing ? pause() : play();
-  });
+  pauseBtn.addEventListener("click", () => playing ? pause() : play());
+  nextBtn.addEventListener("click", () => { nextSlide(); if (playing) pause(); });
+  prevBtn.addEventListener("click", () => { prevSlide(); if (playing) pause(); });
 
-  nextBtn.addEventListener("click", () => {
-    nextSlide();
-    if (playing) pause();
-  });
-
-  prevBtn.addEventListener("click", () => {
-    prevSlide();
-    if (playing) pause();
-  });
-
-  // Init
   showSlide(current);
   play();
 }
 
-// Create both sliders
 createSlider("slider1", 10000);
 createSlider("slider2", 10000);
 
-// Fullscreen Viewer
-document.querySelectorAll(".clickable").forEach(img => {
-  img.addEventListener("click", () => {
-    const viewer = document.getElementById("fullscreenViewer");
-    const viewerImg = document.getElementById("fullscreenImage");
-    viewerImg.src = img.src;
-    viewer.style.display = "flex";
-  });
+// Fullscreen modal logic
+const modal = document.getElementById("fullscreen-modal");
+const modalImg = document.getElementById("modal-img");
+const downloadBtn = document.getElementById("download-btn");
+
+let zoom = 1;
+
+function openModal(src) {
+  modal.style.display = "block";
+  modalImg.src = src;
+  downloadBtn.href = src;
+  zoom = 1;
+  modalImg.style.transform = `scale(${zoom})`;
+}
+
+function closeModal() {
+  modal.style.display = "none";
+}
+
+document.querySelectorAll(".clickable-image").forEach(img => {
+  img.addEventListener("click", () => openModal(img.src));
 });
 
-document.querySelector(".fullscreen .close").addEventListener("click", () => {
-  document.getElementById("fullscreenViewer").style.display = "none";
+document.querySelector(".modal .close").addEventListener("click", closeModal);
+
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) closeModal();
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeModal();
+  if (e.key === "+" || e.key === "=") zoomIn();
+  if (e.key === "-") zoomOut();
+  if (e.key === "ArrowRight") zoomIn();
+  if (e.key === "ArrowLeft") zoomOut();
+});
+
+function zoomIn() {
+  zoom += 0.1;
+  modalImg.style.transform = `scale(${zoom})`;
+}
+
+function zoomOut() {
+  zoom = Math.max(1, zoom - 0.1);
+  modalImg.style.transform = `scale(${zoom})`;
+}
+
+modal.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  e.deltaY < 0 ? zoomIn() : zoomOut();
 });

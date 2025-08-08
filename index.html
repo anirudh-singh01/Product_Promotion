@@ -2,40 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CSG KA Usage Dashboard</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <!-- HEADER -->
   <header>CSG KA Usage Dashboard</header>
-
-  <!-- NAVIGATION -->
   <nav>
-    <a href="index.html">Home</a>
-    <a href="https://onedrive.live.com/your-usage-excel-link" target="_blank">KA Usage Executive Report</a>
-    <a href="https://onedrive.live.com/your-nonusage-excel-link" target="_blank">KA Non-Usage Executive Report</a>
-    <a href="https://onedrive.live.com/your-reference-folder" target="_blank">References</a>
+    <a href="#">Home</a>
+    <a href="#">KA Usage Executive Report</a>
+    <a href="#">KA Non-Usage Executive Report</a>
+    <a href="#">References</a>
   </nav>
 
-  <!-- SECTION TITLE -->
   <div class="section-title">For All Rolled-Out 11 GTM Product</div>
 
-  <!-- STATIC IMAGES -->
   <div class="image-grid static-grid">
-    <div class="card">
-      <img src="assets/static/static1.jpg" alt="Static Image 1" class="clickable-image" />
-    </div>
-    <div class="card">
-      <img src="assets/static/static2.jpg" alt="Static Image 2" class="clickable-image" />
-    </div>
-    <div class="card">
-      <img src="assets/static/static3.jpg" alt="Static Image 3" class="clickable-image" />
-    </div>
+    <div class="card"><img src="assets/static/static1.jpg" class="clickable-image" /></div>
+    <div class="card"><img src="assets/static/static2.jpg" class="clickable-image" /></div>
+    <div class="card"><img src="assets/static/static3.jpg" class="clickable-image" /></div>
   </div>
 
-  <!-- SLIDER IMAGES -->
   <div class="image-grid slider-grid">
     <div class="card slider-wrapper">
       <div class="slider" id="slider1">
@@ -69,10 +56,10 @@
   <!-- FULLSCREEN MODAL -->
   <div id="fullscreen-modal" class="modal">
     <span class="close">&times;</span>
+    <a id="download-btn" href="#" download class="download-btn" title="Download">⬇️</a>
     <img class="modal-content" id="modal-img">
   </div>
 
-  <!-- SLIDER SCRIPT -->
   <script src="scripts.js"></script>
 </body>
 </html>
