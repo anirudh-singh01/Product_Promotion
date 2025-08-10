@@ -1,107 +1,128 @@
-function createSlider(sliderId, intervalTime = 10000) {
-  const container = document.getElementById(sliderId);
-  const slides = container.getElementsByTagName("img");
-  const controls = document.querySelector(`.slider-controls[data-slider="${sliderId}"]`);
-  const counter = controls.querySelector(".counter");
-  const pauseBtn = controls.querySelector('[data-action="pause"]');
-  const nextBtn = controls.querySelector('[data-action="next"]');
-  const prevBtn = controls.querySelector('[data-action="prev"]');
+/* scripts.js
+   Handles:
+   - multiple independent sliders (auto-play, prev/next/pause)
+   - counters
+   - clicking images opens fullscreen modal + download link
+*/
 
-  let current = 0;
-  let playing = true;
-  let interval;
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize sliders
+  const sliders = document.querySelectorAll('.slider');
 
-  function updateCounter() {
-    counter.textContent = `${current + 1} of ${slides.length}`;
+  const sliderState = new Map();
+
+  sliders.forEach(slider => {
+    const id = slider.id || `slider-${Math.random().toString(36).slice(2,9)}`;
+    slider.id = id;
+    const slides = Array.from(slider.querySelectorAll('.slide'));
+    const controls = document.querySelector(`.slider-controls[data-slider="${id}"]`);
+    const intervalMs = parseInt(slider.dataset.interval || 4000, 10);
+
+    // initial state
+    const state = {
+      idx: slides.findIndex(s => s.classList.contains('active')) >= 0 ? slides.findIndex(s => s.classList.contains('active')) : 0,
+      timer: null,
+      playing: true,
+      slides,
+      intervalMs,
+      controls
+    };
+
+    // ensure only one active
+    slides.forEach((s, i) => s.classList.toggle('active', i === state.idx));
+    updateCounter(controls, state.idx + 1, slides.length);
+
+    // auto-play
+    state.timer = setInterval(() => slideTo(slider, state, state.idx + 1), intervalMs);
+
+    // wire controls
+    if (controls) {
+      controls.addEventListener('click', (ev) => {
+        const action = ev.target.closest('button')?.dataset?.action;
+        if (!action) return;
+        if (action === 'prev') {
+          slideTo(slider, state, state.idx - 1);
+          restartTimer(state);
+        } else if (action === 'next') {
+          slideTo(slider, state, state.idx + 1);
+          restartTimer(state);
+        } else if (action === 'pause') {
+          if (state.playing) {
+            clearInterval(state.timer);
+            state.playing = false;
+            ev.target.innerText = '▶️';
+          } else {
+            state.timer = setInterval(() => slideTo(slider, state, state.idx + 1), state.intervalMs);
+            state.playing = true;
+            ev.target.innerText = '⏸️';
+          }
+        }
+      });
+    }
+
+    // store
+    sliderState.set(id, state);
+  });
+
+  function slideTo(slider, state, newIdx) {
+    const { slides } = state;
+    const len = slides.length;
+    const wrapped = ((newIdx % len) + len) % len; // wrap properly
+    if (wrapped === state.idx) return;
+    slides[state.idx].classList.remove('active');
+    slides[wrapped].classList.add('active');
+    state.idx = wrapped;
+    if (state.controls) updateCounter(state.controls, state.idx + 1, len);
+    else {
+      // find controls
+      const ctrls = document.querySelector(`.slider-controls[data-slider="${slider.id}"]`);
+      if (ctrls) updateCounter(ctrls, state.idx + 1, len);
+    }
   }
 
-  function showSlide(index) {
-    Array.from(slides).forEach(slide => slide.classList.remove("active"));
-    slides[index].classList.add("active");
-    updateCounter();
+  function restartTimer(state) {
+    if (!state.playing) return;
+    clearInterval(state.timer);
+    state.timer = setInterval(() => slideTo(document.getElementById(state.slides[0].closest('.slider').id), state, state.idx + 1), state.intervalMs);
   }
 
-  function nextSlide() {
-    current = (current + 1) % slides.length;
-    showSlide(current);
+  function updateCounter(controlsEl, current, total) {
+    const span = controlsEl.querySelector('.counter');
+    if (span) span.textContent = `${current} of ${total}`;
   }
 
-  function prevSlide() {
-    current = (current - 1 + slides.length) % slides.length;
-    showSlide(current);
+  /* Modal open/close + download */
+  const modal = document.getElementById('fullscreen-modal');
+  const modalImg = document.getElementById('modal-img');
+  const downloadBtn = document.getElementById('download-btn');
+  const closeBtn = modal.querySelector('.modal-close');
+
+  document.body.addEventListener('click', (ev) => {
+    const img = ev.target.closest('.clickable-image');
+    if (!img) return;
+    // open modal
+    const src = img.getAttribute('src');
+    const alt = img.getAttribute('alt') || '';
+    modalImg.src = src;
+    modalImg.alt = alt;
+    downloadBtn.href = src;
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  });
+
+  function closeModal() {
+    modal.setAttribute('aria-hidden', 'true');
+    modalImg.src = '';
+    document.body.style.overflow = '';
   }
 
-  function play() {
-    interval = setInterval(nextSlide, intervalTime);
-    playing = true;
-    pauseBtn.textContent = "⏸️";
-  }
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
 
-  function pause() {
-    clearInterval(interval);
-    playing = false;
-    pauseBtn.textContent = "▶️";
-  }
-
-  pauseBtn.addEventListener("click", () => playing ? pause() : play());
-  nextBtn.addEventListener("click", () => { nextSlide(); if (playing) pause(); });
-  prevBtn.addEventListener("click", () => { prevSlide(); if (playing) pause(); });
-
-  showSlide(current);
-  play();
-}
-
-createSlider("slider1", 10000);
-createSlider("slider2", 10000);
-
-// Fullscreen modal logic
-const modal = document.getElementById("fullscreen-modal");
-const modalImg = document.getElementById("modal-img");
-const downloadBtn = document.getElementById("download-btn");
-
-let zoom = 1;
-
-function openModal(src) {
-  modal.style.display = "block";
-  modalImg.src = src;
-  downloadBtn.href = src;
-  zoom = 1;
-  modalImg.style.transform = `scale(${zoom})`;
-}
-
-function closeModal() {
-  modal.style.display = "none";
-}
-
-document.querySelectorAll(".clickable-image").forEach(img => {
-  img.addEventListener("click", () => openModal(img.src));
-});
-
-document.querySelector(".modal .close").addEventListener("click", closeModal);
-
-modal.addEventListener("click", (e) => {
-  if (e.target === modal) closeModal();
-});
-
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeModal();
-  if (e.key === "+" || e.key === "=") zoomIn();
-  if (e.key === "-") zoomOut();
-  if (e.key === "ArrowRight") zoomIn();
-  if (e.key === "ArrowLeft") zoomOut();
-});
-
-function zoomIn() {
-  zoom += 0.1;
-  modalImg.style.transform = `scale(${zoom})`;
-}
-
-function zoomOut() {
-  zoom = Math.max(1, zoom - 0.1);
-  modalImg.style.transform = `scale(${zoom})`;
-}
-
-modal.addEventListener("wheel", (e) => {
-  e.preventDefault();
-  e.deltaY < 0 ? zoomIn() : zoomOut();
+  // close on ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closeModal();
+  });
 });

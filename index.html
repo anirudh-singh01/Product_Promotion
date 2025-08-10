@@ -1,72 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>CSG KA Usage Dashboard</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- Full-width header with centered content -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <h1>CSG KA Usage Dashboard</h1>
+      </div>
 
-  <!-- HEADER + NAV COMBINED -->
-  <header>
-    <h1>CSG KA Usage Dashboard</h1>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">KA Usage Executive Report</a>
-      <a href="#">KA Non-Usage Executive Report</a>
-      <a href="#">References</a>
-    </nav>
+      <nav class="main-nav" aria-label="Main Navigation">
+        <a href="#">Home</a>
+        <a href="#">KA Usage Executive Report</a>
+        <a href="#">KA Non-Usage Executive Report</a>
+        <a href="#">References</a>
+      </nav>
+    </div>
   </header>
 
-  <!-- SECTION TITLE -->
-  <div class="section-title">For All Rolled-Out 11 GTM Product</div>
+  <main class="container main-content" id="main">
+    <section class="section-title">For All Rolled-Out 11 GTM Product</section>
 
-  <!-- STATIC IMAGE GRID -->
-  <div class="image-grid static-grid">
-    <div class="card"><img src="assets/static/static1.jpg" alt="Static Image 1" class="clickable-image" /></div>
-    <div class="card"><img src="assets/static/static2.jpg" alt="Static Image 2" class="clickable-image" /></div>
-    <div class="card"><img src="assets/static/static3.jpg" alt="Static Image 3" class="clickable-image" /></div>
-  </div>
+    <!-- STATIC IMAGES ROW -->
+    <section class="image-grid static-grid" aria-label="Static images">
+      <div class="card"><img src="assets/static/static1.jpg" alt="Static 1" class="clickable-image" loading="lazy"></div>
+      <div class="card"><img src="assets/static/static2.jpg" alt="Static 2" class="clickable-image" loading="lazy"></div>
+      <div class="card"><img src="assets/static/static3.jpg" alt="Static 3" class="clickable-image" loading="lazy"></div>
+    </section>
 
-  <!-- SLIDER GRID -->
-  <div class="image-grid slider-grid">
-    <div class="card slider-wrapper">
-      <div class="slider" id="slider1">
-        <img src="assets/slider/slider1/s1.jpg" alt="Slider 1 Image 1" class="active clickable-image" />
-        <img src="assets/slider/slider1/s2.jpg" alt="Slider 1 Image 2" class="clickable-image" />
-        <img src="assets/slider/slider1/s3.jpg" alt="Slider 1 Image 3" class="clickable-image" />
-      </div>
-      <div class="slider-controls" data-slider="slider1">
-        <button class="control-btn" data-action="pause">⏸️</button>
-        <button class="control-btn" data-action="prev">◀️</button>
-        <span class="counter">1 of 3</span>
-        <button class="control-btn" data-action="next">▶️</button>
-      </div>
-    </div>
+    <!-- SLIDERS ROW -->
+    <section class="image-grid slider-grid" aria-label="Image sliders">
+      <!-- Slider 1 -->
+      <div class="card slider-wrapper">
+        <div class="slider" id="slider1" data-interval="4000" aria-live="polite">
+          <img src="assets/slider/slider1/s1.jpg" alt="Slider 1 - 1" class="slide active clickable-image">
+          <img src="assets/slider/slider1/s2.jpg" alt="Slider 1 - 2" class="slide clickable-image">
+          <img src="assets/slider/slider1/s3.jpg" alt="Slider 1 - 3" class="slide clickable-image">
+        </div>
 
-    <div class="card slider-wrapper">
-      <div class="slider" id="slider2">
-        <img src="assets/slider/slider2/s1.jpg" alt="Slider 2 Image 1" class="active clickable-image" />
-        <img src="assets/slider/slider2/s2.jpg" alt="Slider 2 Image 2" class="clickable-image" />
-        <img src="assets/slider/slider2/s3.jpg" alt="Slider 2 Image 3" class="clickable-image" />
+        <div class="slider-controls" data-slider="slider1" role="toolbar" aria-label="Slider 1 controls">
+          <button class="control-btn" data-action="prev" aria-label="Previous">◀️</button>
+          <span class="counter" aria-hidden="true">1 of 3</span>
+          <button class="control-btn" data-action="next" aria-label="Next">▶️</button>
+          <button class="control-btn" data-action="pause" aria-label="Pause">⏸️</button>
+        </div>
       </div>
-      <div class="slider-controls" data-slider="slider2">
-        <button class="control-btn" data-action="pause">⏸️</button>
-        <button class="control-btn" data-action="prev">◀️</button>
-        <span class="counter">1 of 3</span>
-        <button class="control-btn" data-action="next">▶️</button>
+
+      <!-- Slider 2 -->
+      <div class="card slider-wrapper">
+        <div class="slider" id="slider2" data-interval="4500" aria-live="polite">
+          <img src="assets/slider/slider2/s1.jpg" alt="Slider 2 - 1" class="slide active clickable-image">
+          <img src="assets/slider/slider2/s2.jpg" alt="Slider 2 - 2" class="slide clickable-image">
+          <img src="assets/slider/slider2/s3.jpg" alt="Slider 2 - 3" class="slide clickable-image">
+        </div>
+
+        <div class="slider-controls" data-slider="slider2" role="toolbar" aria-label="Slider 2 controls">
+          <button class="control-btn" data-action="prev" aria-label="Previous">◀️</button>
+          <span class="counter" aria-hidden="true">1 of 3</span>
+          <button class="control-btn" data-action="next" aria-label="Next">▶️</button>
+          <button class="control-btn" data-action="pause" aria-label="Pause">⏸️</button>
+        </div>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 
   <!-- FULLSCREEN MODAL -->
-  <div id="fullscreen-modal" class="modal">
-    <span class="close">&times;</span>
-    <a id="download-btn" href="#" download class="download-btn" title="Download">⬇️</a>
-    <img class="modal-content" id="modal-img" alt="Fullscreen View">
+  <div id="fullscreen-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="modal-close" aria-label="Close">&times;</button>
+    <a id="download-btn" class="download-btn" title="Download image" download>⬇️</a>
+    <img id="modal-img" class="modal-content" alt="">
   </div>
 
-  <script src="scripts.js"></script>
+  <script src="scripts.js" defer></script>
 </body>
 </html>
