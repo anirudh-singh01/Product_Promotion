@@ -7,28 +7,35 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>CSG KA Usage Dashboard</header>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">KA Usage Executive Report</a>
-    <a href="#">KA Non-Usage Executive Report</a>
-    <a href="#">References</a>
-  </nav>
 
+  <!-- HEADER + NAV COMBINED -->
+  <header>
+    <h1>CSG KA Usage Dashboard</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">KA Usage Executive Report</a>
+      <a href="#">KA Non-Usage Executive Report</a>
+      <a href="#">References</a>
+    </nav>
+  </header>
+
+  <!-- SECTION TITLE -->
   <div class="section-title">For All Rolled-Out 11 GTM Product</div>
 
+  <!-- STATIC IMAGE GRID -->
   <div class="image-grid static-grid">
-    <div class="card"><img src="assets/static/static1.jpg" class="clickable-image" /></div>
-    <div class="card"><img src="assets/static/static2.jpg" class="clickable-image" /></div>
-    <div class="card"><img src="assets/static/static3.jpg" class="clickable-image" /></div>
+    <div class="card"><img src="assets/static/static1.jpg" alt="Static Image 1" class="clickable-image" /></div>
+    <div class="card"><img src="assets/static/static2.jpg" alt="Static Image 2" class="clickable-image" /></div>
+    <div class="card"><img src="assets/static/static3.jpg" alt="Static Image 3" class="clickable-image" /></div>
   </div>
 
+  <!-- SLIDER GRID -->
   <div class="image-grid slider-grid">
     <div class="card slider-wrapper">
       <div class="slider" id="slider1">
-        <img src="assets/slider/slider1/s1.jpg" class="active clickable-image" />
-        <img src="assets/slider/slider1/s2.jpg" class="clickable-image" />
-        <img src="assets/slider/slider1/s3.jpg" class="clickable-image" />
+        <img src="assets/slider/slider1/s1.jpg" alt="Slider 1 Image 1" class="active clickable-image" />
+        <img src="assets/slider/slider1/s2.jpg" alt="Slider 1 Image 2" class="clickable-image" />
+        <img src="assets/slider/slider1/s3.jpg" alt="Slider 1 Image 3" class="clickable-image" />
       </div>
       <div class="slider-controls" data-slider="slider1">
         <button class="control-btn" data-action="pause">⏸️</button>
@@ -40,9 +47,9 @@
 
     <div class="card slider-wrapper">
       <div class="slider" id="slider2">
-        <img src="assets/slider/slider2/s1.jpg" class="active clickable-image" />
-        <img src="assets/slider/slider2/s2.jpg" class="clickable-image" />
-        <img src="assets/slider/slider2/s3.jpg" class="clickable-image" />
+        <img src="assets/slider/slider2/s1.jpg" alt="Slider 2 Image 1" class="active clickable-image" />
+        <img src="assets/slider/slider2/s2.jpg" alt="Slider 2 Image 2" class="clickable-image" />
+        <img src="assets/slider/slider2/s3.jpg" alt="Slider 2 Image 3" class="clickable-image" />
       </div>
       <div class="slider-controls" data-slider="slider2">
         <button class="control-btn" data-action="pause">⏸️</button>
@@ -57,7 +64,7 @@
   <div id="fullscreen-modal" class="modal">
     <span class="close">&times;</span>
     <a id="download-btn" href="#" download class="download-btn" title="Download">⬇️</a>
-    <img class="modal-content" id="modal-img">
+    <img class="modal-content" id="modal-img" alt="Fullscreen View">
   </div>
 
   <script src="scripts.js"></script>

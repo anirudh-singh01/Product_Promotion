@@ -3,11 +3,12 @@
   --secondary-color: #ffffff;
   --accent-color: #5B5EA6;
   --slider-height: 350px;
-  --fixed-image-height: 350px;
+  --fixed-image-height: 300px;
   --border-radius: 8px;
   --shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
+/* RESET */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -18,25 +19,27 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--secondary-color);
   color: #333;
-  padding: 10px;
   line-height: 1.5;
 }
 
+/* HEADER + NAV */
 header {
   background-color: var(--primary-color);
   color: white;
+  padding: 1rem 0 0.5rem;
   text-align: center;
-  padding: 1.2rem 0;
+}
+
+header h1 {
   font-size: 2rem;
   font-weight: 600;
+  margin-bottom: 0.5rem;
 }
 
 nav {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  background-color: var(--primary-color);
-  padding: 1rem 0.5rem;
   gap: 1rem;
 }
 
@@ -56,18 +59,21 @@ nav a:hover {
   color: white;
 }
 
+/* SECTION TITLE */
 .section-title {
   text-align: center;
   font-weight: 600;
   font-size: 1.3rem;
-  margin: 2rem 0 1rem;
+  margin: 1.5rem 0 1rem;
 }
 
+/* IMAGE GRIDS */
 .image-grid {
   display: grid;
   gap: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  justify-items: center;
 }
 
 .card {
@@ -76,6 +82,8 @@ nav a:hover {
   padding: 10px;
   box-shadow: var(--shadow);
   text-align: center;
+  width: 100%;
+  max-width: 500px;
 }
 
 .card img {
@@ -86,6 +94,7 @@ nav a:hover {
   cursor: pointer;
 }
 
+/* SLIDER */
 .slider {
   position: relative;
   height: var(--slider-height);
@@ -133,6 +142,7 @@ nav a:hover {
   font-weight: 600;
 }
 
+/* MODAL */
 .modal {
   display: none;
   position: fixed;
@@ -152,7 +162,6 @@ nav a:hover {
   max-width: 90%;
   max-height: 80vh;
   object-fit: contain;
-  transition: transform 0.3s ease;
 }
 
 .modal .close {
@@ -173,8 +182,19 @@ nav a:hover {
   text-decoration: none;
 }
 
-@media (max-width: 575.98px) {
-  header { font-size: 1.6rem; }
-  nav a { padding: 8px 16px; font-size: 0.9rem; }
-  .slider-controls { font-size: 0.9rem; }
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.6rem;
+  }
+  nav a {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+  .card img {
+    height: 200px;
+  }
+  .slider {
+    height: 200px;
+  }
 }
