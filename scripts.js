@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     slider.id = id;
     const slides = Array.from(slider.querySelectorAll('.slide'));
     const controls = document.querySelector(`.slider-controls[data-slider="${id}"]`);
-    const intervalMs = parseInt(slider.dataset.interval || 4000, 10);
+    const intervalMs = parseInt(slider.dataset.interval || 12000, 10);
 
     // initial state
     const state = {

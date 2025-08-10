@@ -104,59 +104,56 @@ body{
 }
 
 /* GRID LAYOUT: reuse the same grid but control width via card max-width */
-.image-grid{
-  display:grid;
-  gap:20px;
-  margin-bottom:22px;
+/* Make grid edge-to-edge while keeping gaps */
+.image-grid {
+  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  align-items:start;
-  justify-items:center;
+  gap: 12px; /* smaller, modern gap */
+  margin-bottom: 22px;
+  align-items: stretch;
+  justify-items: stretch;
+  width: 100vw; /* full viewport width */
+  margin-left: calc(-50vw + 50%); /* removes left/right white space */
 }
 
-/* Card baseline style */
-.card{
-  width:100%;
-  max-width:540px;
-  background:var(--white);
-  border-radius:var(--radius);
-  overflow:hidden;
-  box-shadow:var(--card-shadow);
-  padding:12px;
+/* Card baseline style (full-width inside grid) */
+.card {
+  width: 100%;
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  padding: 8px; /* slimmer padding for modern look */
 }
 
-/* Images inside cards */
-.card img{
-  display:block;
-  width:100%;
-  height:var(--card-img-height);
-  object-fit:cover;
-  border-radius:8px;
-  cursor:pointer;
-  transition: transform .35s cubic-bezier(.2,.9,.2,1);
-}
-.card img:active{ transform: scale(.995) }
-
-/* Slider specifics */
-.slider{
-  position:relative;
-  width:100%;
-  height:var(--slider-height);
-  border-radius:8px;
-  overflow:hidden;
-  background:linear-gradient(180deg,#f5f6fb,#eef0f7);
+/* Images inside cards fill perfectly */
+.card img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9; /* modern responsive ratio */
+  object-fit: cover;
+  border-radius: 8px;
 }
 
-.slider .slide{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  opacity:0;
-  transform: scale(1.02);
-  transition: opacity 700ms ease, transform 700ms ease;
-  border-radius:8px;
+/* Slider full-width edge-to-edge */
+.slider {
+  position: relative;
+  width: 100vw; /* full viewport width */
+  height: var(--slider-height);
+  border-radius: 0; /* no rounding for edge-to-edge effect */
+  overflow: hidden;
+  margin-left: calc(-50vw + 50%); /* center + fill */
 }
+
+/* Slider images fill completely */
+.slider .slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .slider .slide.active{
   opacity:1;
   transform: scale(1);
