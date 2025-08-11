@@ -281,7 +281,7 @@ body {
   }
 }
 
-@media (min-width: 700px) and (max-width: 840px) {
+@media (min-width: 560px) and (max-width: 840px) {
   :root {
     --slider-height: 250px;
     --card-img-height: 220px;
