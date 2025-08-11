@@ -4,16 +4,22 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>CSG KA Usage Dashboard</title>
+
+  <!-- Preload critical resources -->
+  <link rel="preload" href="style.css" as="style">
+  <link rel="preload" href="assets/slider/slider1/s1.jpg" as="image" fetchpriority="high">
+  <link rel="preload" href="assets/slider/slider2/s1.jpg" as="image">
+
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
+
 </head>
 <body>
-  <!-- Full-width header with centered content -->
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand">
         <h1>CSG KA Usage Dashboard</h1>
       </div>
-
       <nav class="main-nav" aria-label="Main Navigation">
         <a href="#">Home</a>
         <a href="#">KA Usage Executive Report</a>
@@ -26,23 +32,21 @@
   <main class="container main-content" id="main">
     <section class="section-title">For All Rolled-Out 11 GTM Product</section>
 
-    <!-- STATIC IMAGES ROW -->
+    <!-- STATIC IMAGES -->
     <section class="image-grid static-grid" aria-label="Static images">
       <div class="card"><img src="assets/static/static1.jpg" alt="Static 1" class="clickable-image" loading="lazy"></div>
       <div class="card"><img src="assets/static/static2.jpg" alt="Static 2" class="clickable-image" loading="lazy"></div>
       <div class="card"><img src="assets/static/static3.jpg" alt="Static 3" class="clickable-image" loading="lazy"></div>
     </section>
 
-    <!-- SLIDERS ROW -->
+    <!-- SLIDERS -->
     <section class="image-grid slider-grid" aria-label="Image sliders">
-      <!-- Slider 1 -->
       <div class="card slider-wrapper">
         <div class="slider" id="slider1" data-interval="12000" aria-live="polite">
-          <img src="assets/slider/slider1/s1.jpg" alt="Slider 1 - 1" class="slide active clickable-image">
-          <img src="assets/slider/slider1/s2.jpg" alt="Slider 1 - 2" class="slide clickable-image">
-          <img src="assets/slider/slider1/s3.jpg" alt="Slider 1 - 3" class="slide clickable-image">
+          <img src="assets/slider/slider1/s1.jpg" alt="Slider 1 - 1" class="slide active clickable-image" fetchpriority="high">
+          <img src="assets/slider/slider1/s2.jpg" alt="Slider 1 - 2" class="slide clickable-image" loading="lazy">
+          <img src="assets/slider/slider1/s3.jpg" alt="Slider 1 - 3" class="slide clickable-image" loading="lazy">
         </div>
-
         <div class="slider-controls" data-slider="slider1" role="toolbar" aria-label="Slider 1 controls">
           <button class="control-btn" data-action="prev" aria-label="Previous">◀️</button>
           <span class="counter" aria-hidden="true">1 of 3</span>
@@ -51,14 +55,12 @@
         </div>
       </div>
 
-      <!-- Slider 2 -->
       <div class="card slider-wrapper">
         <div class="slider" id="slider2" data-interval="12000" aria-live="polite">
           <img src="assets/slider/slider2/s1.jpg" alt="Slider 2 - 1" class="slide active clickable-image">
-          <img src="assets/slider/slider2/s2.jpg" alt="Slider 2 - 2" class="slide clickable-image">
-          <img src="assets/slider/slider2/s3.jpg" alt="Slider 2 - 3" class="slide clickable-image">
+          <img src="assets/slider/slider2/s2.jpg" alt="Slider 2 - 2" class="slide clickable-image" loading="lazy">
+          <img src="assets/slider/slider2/s3.jpg" alt="Slider 2 - 3" class="slide clickable-image" loading="lazy">
         </div>
-
         <div class="slider-controls" data-slider="slider2" role="toolbar" aria-label="Slider 2 controls">
           <button class="control-btn" data-action="prev" aria-label="Previous">◀️</button>
           <span class="counter" aria-hidden="true">1 of 3</span>
@@ -69,7 +71,7 @@
     </section>
   </main>
 
-  <!-- FULLSCREEN MODAL -->
+  <!-- MODAL -->
   <div id="fullscreen-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
     <button class="modal-close" aria-label="Close">&times;</button>
     <a id="download-btn" class="download-btn" title="Download image" download>⬇️</a>
